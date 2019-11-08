@@ -4,7 +4,7 @@ EXPOSE 5858
 WORKDIR /data
 COPY package*.json ./
 RUN npm install
-COPY dist/public ./
+COPY dist ./
 
 ENTRYPOINT ["/usr/local/bin/node", "--inspect=0.0.0.0:5858", "index.js"]
 
