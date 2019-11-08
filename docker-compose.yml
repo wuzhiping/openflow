@@ -1,21 +1,21 @@
-version: "3"
+version: "2"
 services:
   mongodb:
     image: "mongo"
     restart: always
-    ports:
-      - "27017:27017"
+    #ports:
+    #  - "27017:27017"
   rabbitmq:
     image: "rabbitmq:3-management"
     restart: always
     environment:
       - RABBITMQ_DEFAULT_USER=admin
-      - RABBITMQ_DEFAULT_PASS=demo2018
-    ports:
-      - "5672:5672"
-      - "15672:15672"
+      - RABBITMQ_DEFAULT_PASS=demo2019
+    #ports:
+    #  - "5672:5672"
+    #  - "15672:15672"
   web:
-    image: "cloudhack/openflow:0.0.342"
+    image: "shawoo/openflow"
     environment:
       - auto_create_users=true
       - auto_create_domains=
@@ -33,19 +33,19 @@ services:
       - saml_issuer=uri:localhost.openrpa.dk
       - mongodb_url=mongodb://mongodb:27017
       - mongodb_db=openflow
-      - amqp_url=amqp://admin:demo2018@rabbitmq
+      - amqp_url=amqp://admin:demo2019@rabbitmq
       - api_ws_url=ws://localhost.openrpa.dk
       - domain=localhost.openrpa.dk
       - rabbitmq_default_user=admin
       - nodered_domain_schema=localhost.openrpa.dk
       - skip_history_collections=audit,jslog
-      - rabbitmq_default_pass=demo2018
+      - rabbitmq_default_pass=demo2019
       - aes_secret=7TXsxf7cn9EkUqm5h4MEWGjzkxkNCk2K
     ports:
-      - "80:80"
+      - "87:80"
       - "5858:5858"
   nodered:
-    image: "cloudhack/openflownodered:0.0.342"
+    image: "shawoo/openflow:nodered"
     environment:
       - auto_create_users=true
       - auto_create_domains=
@@ -63,13 +63,13 @@ services:
       - saml_entrypoint=http://localhost.openrpa.dk/issue
       - mongodb_url=mongodb://mongo:27017
       - mongodb_db=openflow
-      - amqp_url=amqp://admin:demo2018@rabbitmq
+      - amqp_url=amqp://admin:demo2019@rabbitmq
       - api_ws_url=ws://web
       - domain=localhost.openrpa.dk
       - rabbitmq_default_user=admin
       - nodered_domain_schema=localhost.openrpa.dk
       - skip_history_collections=audit,jslog
-      - rabbitmq_default_pass=demo2018
+      - rabbitmq_default_pass=demo2019
       - aes_secret=7TXsxf7cn9EkUqm5h4MEWGjzkxkNCk2K
     ports:
       - "1880:1880"
